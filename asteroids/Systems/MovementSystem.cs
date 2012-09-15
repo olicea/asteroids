@@ -16,8 +16,8 @@ namespace asteriods.Systems {
 
 
 		public override void Initialize() {
-			this.transformMapper = new ComponentMapper<Transform>();
-			this.velocityMapper = new ComponentMapper<Velocity>();
+			this.transformMapper = new ComponentMapper<Transform>(world);
+			this.velocityMapper = new ComponentMapper<Velocity>(world);
 		}
 
 		public override void Process(Entity entity) {

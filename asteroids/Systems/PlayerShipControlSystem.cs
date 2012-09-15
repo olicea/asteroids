@@ -20,7 +20,7 @@ namespace asteriods.Systems {
 
 
 		public override void Initialize() {
-			this.velocityMapper = new ComponentMapper<Velocity>();
+			this.velocityMapper = new ComponentMapper<Velocity>(world);
 			this.oldState = Keyboard.GetState();
 		}
 
