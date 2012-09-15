@@ -33,6 +33,9 @@
     <StartupObject>asteroids.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="artemis">
+      <HintPath>..\..\artemis_CSharp\Artemis_XNA_INDEPENDENT\bin\Debug\artemis.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Avatar, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
