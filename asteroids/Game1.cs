@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using asteriods.Spatials;
 
 namespace asteroids
 {
@@ -50,6 +51,7 @@ namespace asteroids
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: use this.Content to load your game content here
+			PlayerForm.LoadContent(this.GraphicsDevice);
 		}
 
 		/// <summary>
