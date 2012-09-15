@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using asteriods.Spatials;
+using Artemis;
+using asteriods.Systems;
+using asteriods.Components;
 
 namespace asteroids
 {
@@ -21,6 +24,8 @@ namespace asteroids
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+
+		private EntityWorld world;
 
 		public Game1()
 		{
@@ -37,6 +42,24 @@ namespace asteroids
 		protected override void Initialize()
 		{
 			// TODO: Add your initialization logic here
+			this.world = new EntityWorld();
+
+			this.world.SystemManager.SetSystem(new PlayerShipControlSystem(), ExecutionType.Update);
+			this.world.SystemManager.SetSystem(new MovementSystem(), ExecutionType.Update);
+			this.world.SystemManager.SetSystem(new RenderSystem(GraphicsDevice, this.spriteBatch), ExecutionType.Draw);
+
+			this.world.SystemManager.InitializeAll();
+
+			// initialize player
+			Entity entity = this.world.CreateEntity();
+			entity.AddComponent(new Transform(
+				new Vector3(this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0f)
+			));
+			entity.AddComponent(new Velocity());
+			entity.AddComponent(new SpatialForm(SpatialForms.Player));
+			entity.Refresh();
+
+			entity.Tag = "PLAYER";
 
 			base.Initialize();
 		}
@@ -63,6 +86,8 @@ namespace asteroids
 			// TODO: Unload any non ContentManager content here
 		}
 
+		private DateTime lastTime = DateTime.Now;
+
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
@@ -71,6 +96,13 @@ namespace asteroids
 		protected override void Update(GameTime gameTime)
 		{
 			// TODO: Add your update logic here
+			TimeSpan elapsed = DateTime.Now - this.lastTime;
+			this.lastTime = DateTime.Now;
+
+			this.world.LoopStart();
+			this.world.Delta = elapsed.Milliseconds;
+
+			this.world.SystemManager.UpdateSynchronous(ExecutionType.Update);
 
 			base.Update(gameTime);
 		}
@@ -84,6 +116,11 @@ namespace asteroids
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			// TODO: Add your drawing code here
+			this.spriteBatch.Begin();
+
+			this.world.SystemManager.UpdateSynchronous(ExecutionType.Draw);
+
+			this.spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
