@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace asteriods.Systems {
 	class PlayerShipControlSystem : TagSystem {
-		private readonly float speed = 1.0f;
-		private readonly float rotation = 10.0f;
+		private readonly float speed = 0.001f;
+		private readonly float rotation = 0.1f;
 
 		private ComponentMapper<Velocity> velocityMapper;
 		private KeyboardState oldState;
