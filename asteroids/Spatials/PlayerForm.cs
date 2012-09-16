@@ -20,6 +20,11 @@ namespace asteriods.Spatials {
 			Rectangle destination = new Rectangle((int)transform.X, (int)transform.Y, texture.Width, texture.Height);
 
 			spriteBatch.Draw(texture, destination, Color.White);
+
+
+			if (SpatialHelpers.IsGoingBeyond(ref destination, spriteBatch.GraphicsDevice.Viewport)) {
+				spriteBatch.Draw(texture, destination, Color.White);
+			}
 		}
 	}
 }
