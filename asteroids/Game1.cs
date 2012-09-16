@@ -29,8 +29,7 @@ namespace asteroids
 
 		public Game1()
 		{
-			graphics = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
+			this.graphics = new GraphicsDeviceManager(this);
 			this.IsMouseVisible = true;
 		}
 
@@ -43,7 +42,7 @@ namespace asteroids
 		protected override void Initialize()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+			this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// TODO: Add your initialization logic here
 			this.world = new EntityWorld();
@@ -114,7 +113,7 @@ namespace asteroids
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.Black);
+			this.GraphicsDevice.Clear(Color.Black);
 
 			// TODO: Add your drawing code here
 			this.spriteBatch.Begin();
