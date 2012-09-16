@@ -48,7 +48,7 @@ namespace asteroids
 			this.world = new EntityWorld();
 
 			this.world.SystemManager.SetSystem(new PlayerShipControlSystem(), ExecutionType.Update);
-			this.world.SystemManager.SetSystem(new MovementSystem(), ExecutionType.Update);
+			this.world.SystemManager.SetSystem(new MovementSystem(this.GraphicsDevice), ExecutionType.Update);
 			this.world.SystemManager.SetSystem(new RenderSystem(GraphicsDevice, this.spriteBatch), ExecutionType.Draw);
 
 			this.world.SystemManager.InitializeAll();

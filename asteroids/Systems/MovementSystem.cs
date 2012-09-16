@@ -1,5 +1,6 @@
 ﻿using Artemis;
 using asteriods.Components;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,12 @@ namespace asteriods.Systems {
 		private ComponentMapper<Transform> transformMapper;
 		private ComponentMapper<Velocity> velocityMapper;
 
+		private GraphicsDevice graphicsDevice;
 
-		public MovementSystem() : base(typeof(Transform), typeof(Velocity)) { }
+
+		public MovementSystem(GraphicsDevice graphicsDevice) : base(typeof(Transform), typeof(Velocity)) {
+			this.graphicsDevice = graphicsDevice;
+		}
 
 
 		public override void Initialize() {
@@ -24,8 +29,25 @@ namespace asteriods.Systems {
 			Transform transform = transformMapper.Get(entity);
 			Velocity velocity = velocityMapper.Get(entity);
 
-			transform.X += (TrigLUT.Cos(velocity.AngleAsRadians) * velocity.Speed * world.Delta);
-			transform.Y += (TrigLUT.Sin(velocity.AngleAsRadians) * velocity.Speed * world.Delta);
+			transform.X = this.ApplyRange(
+				transform.X + TrigLUT.Cos(velocity.AngleAsRadians) * velocity.Speed * world.Delta, 
+				this.graphicsDevice.Viewport.Width);
+
+			transform.Y = this.ApplyRange(
+				transform.Y + TrigLUT.Sin(velocity.AngleAsRadians) * velocity.Speed * world.Delta,
+				this.graphicsDevice.Viewport.Height);
+		}
+
+		private float ApplyRange(float value, float range) {
+			if (value < 0) {
+				return value + range;
+			}
+
+			if (value > range) {
+				return value - range;
+			}
+
+			return value;
 		}
 	}
 }
