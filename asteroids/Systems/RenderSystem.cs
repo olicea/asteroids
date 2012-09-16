@@ -32,13 +32,6 @@ namespace asteriods.Systems {
 		public override void Process(Entity entity) {
 			Transform transform = this.transformMapper.Get(entity);
 
-			if (transform.X < 0
-				&& transform.X >= this.graphicsDevice.Viewport.Width
-				&& transform.Y < 0
-				&& transform.Y >= this.graphicsDevice.Viewport.Height) {
-					return;
-			}
-
 			switch (this.spatialFormMapper.Get(entity).Form) {
 				case SpatialForms.Player:
 					PlayerForm.Render(this.spriteBatch, transform);
