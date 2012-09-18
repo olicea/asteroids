@@ -12,6 +12,7 @@ namespace asteriods.Systems {
 		private readonly float speed = 0.001f;
 		private readonly float rotation = 0.1f;
 
+		private ComponentMapper<Placement> placementMapper;
 		private ComponentMapper<Velocity> velocityMapper;
 		private KeyboardState oldState;
 
@@ -20,6 +21,7 @@ namespace asteriods.Systems {
 
 
 		public override void Initialize() {
+			this.placementMapper = new ComponentMapper<Placement>(world);
 			this.velocityMapper = new ComponentMapper<Velocity>(world);
 			this.oldState = Keyboard.GetState();
 		}
@@ -36,11 +38,13 @@ namespace asteriods.Systems {
 				velocity.Speed -= world.Delta * this.speed;
 			}
 
+			Placement placement = placementMapper.Get(entity);
+
 			if (state.IsKeyDown(Keys.Left) || state.IsKeyDown(Keys.A)) {
-				velocity.AddAngle(world.Delta * -this.rotation);
+				placement.AddRotation(world.Delta * -this.rotation);
 			}
 			if (state.IsKeyDown(Keys.Right) || state.IsKeyDown(Keys.D)) {
-				velocity.AddAngle(world.Delta * this.rotation);
+				placement.AddRotation(world.Delta * this.rotation);
 			}
 
 			this.oldState = state;
