@@ -9,32 +9,32 @@ using System.Threading.Tasks;
 
 namespace asteriods.Systems {
 	class MovementSystem : EntityProcessingSystem {
-		private ComponentMapper<Transform> transformMapper;
+		private ComponentMapper<Placement> placementMapper;
 		private ComponentMapper<Velocity> velocityMapper;
 
 		private GraphicsDevice graphicsDevice;
 
 
-		public MovementSystem(GraphicsDevice graphicsDevice) : base(typeof(Transform), typeof(Velocity)) {
+		public MovementSystem(GraphicsDevice graphicsDevice) : base(typeof(Placement), typeof(Velocity)) {
 			this.graphicsDevice = graphicsDevice;
 		}
 
 
 		public override void Initialize() {
-			this.transformMapper = new ComponentMapper<Transform>(world);
+			this.placementMapper = new ComponentMapper<Placement>(world);
 			this.velocityMapper = new ComponentMapper<Velocity>(world);
 		}
 
 		public override void Process(Entity entity) {
-			Transform transform = transformMapper.Get(entity);
+			Placement placement = placementMapper.Get(entity);
 			Velocity velocity = velocityMapper.Get(entity);
 
-			transform.X = this.ApplyRange(
-				transform.X + TrigLUT.Cos(velocity.AngleAsRadians) * velocity.Speed * world.Delta, 
+			placement.X = this.ApplyRange(
+				placement.X + TrigLUT.Cos(velocity.AngleAsRadians) * velocity.Speed * world.Delta, 
 				this.graphicsDevice.Viewport.Width);
 
-			transform.Y = this.ApplyRange(
-				transform.Y + TrigLUT.Sin(velocity.AngleAsRadians) * velocity.Speed * world.Delta,
+			placement.Y = this.ApplyRange(
+				placement.Y + TrigLUT.Sin(velocity.AngleAsRadians) * velocity.Speed * world.Delta,
 				this.graphicsDevice.Viewport.Height);
 		}
 

@@ -16,8 +16,8 @@ namespace asteriods.Spatials {
 			texture = Texture2D.FromStream(graphicsDevice, TitleContainer.OpenStream("Content/player.png"));
 		}
 
-		public static void Render(SpriteBatch spriteBatch, Transform transform) {
-			Rectangle destination = new Rectangle((int)transform.X, (int)transform.Y, texture.Width, texture.Height);
+		public static void Render(SpriteBatch spriteBatch, Placement placement) {
+			Rectangle destination = new Rectangle((int)placement.X, (int)placement.Y, texture.Width, texture.Height);
 
 			spriteBatch.Draw(texture, destination, Color.White);
 

@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace asteriods.Components {
-	class Transform : Component {
+	class Placement : Component {
 		private Vector3 coordinates;
 
 
-		public Transform() { }
+		public Placement() { }
 
-		public Transform(Vector3 coordinates) {
+		public Placement(Vector3 coordinates) {
 			this.coordinates = coordinates;
 		}
 
@@ -69,7 +69,7 @@ namespace asteriods.Components {
 			}
 		}
 
-		public float DistanceTo(Transform transform) {
+		public float DistanceTo(Placement transform) {
 			return Artemis.Utils.Distance(transform.X, transform.Y, X, Y);
 		}
 	}
