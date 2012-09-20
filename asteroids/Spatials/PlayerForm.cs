@@ -19,11 +19,27 @@ namespace asteriods.Spatials {
 		public static void Render(SpriteBatch spriteBatch, Placement placement) {
 			Rectangle destination = new Rectangle((int)placement.X, (int)placement.Y, texture.Width, texture.Height);
 
-			spriteBatch.Draw(texture, destination, Color.White);
+			spriteBatch.Draw(texture,
+				destination,
+				null,
+				Color.White,
+				placement.RotationAsRadians,
+				new Vector2(texture.Width / 2, texture.Height / 2),
+				SpriteEffects.None,
+				0
+			);
 
 
 			if (SpatialHelpers.IsGoingBeyond(ref destination, spriteBatch.GraphicsDevice.Viewport)) {
-				spriteBatch.Draw(texture, destination, Color.White);
+				spriteBatch.Draw(texture,
+					destination,
+					null,
+					Color.White,
+					placement.RotationAsRadians,
+					new Vector2(texture.Width / 2, texture.Height / 2),
+					SpriteEffects.None,
+					0
+				);
 			}
 		}
 	}
