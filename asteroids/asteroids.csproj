@@ -7,7 +7,7 @@
     <ProjectGuid>{56701702-BF9C-4C5A-8DD1-F2589F2D8769}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>asteriods</RootNamespace>
+    <RootNamespace>asteroids</RootNamespace>
     <AssemblyName>asteroids</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using asteriods.Spatials;
+using asteroids.Spatials;
 using Artemis;
-using asteriods.Systems;
-using asteriods.Components;
+using asteroids.Systems;
+using asteroids.Components;
 
 namespace asteroids
 {

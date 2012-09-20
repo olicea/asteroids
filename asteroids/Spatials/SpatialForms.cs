@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Spatials {
+namespace asteroids.Spatials {
 	enum SpatialForms {
 		Player,
 	}

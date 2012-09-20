@@ -1,6 +1,6 @@
 ﻿using Artemis;
-using asteriods.Components;
-using asteriods.Spatials;
+using asteroids.Components;
+using asteroids.Spatials;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Systems {
+namespace asteroids.Systems {
 	class RenderSystem : EntityProcessingSystem {
 		private GraphicsDevice graphicsDevice;
 		private SpriteBatch spriteBatch;

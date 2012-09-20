@@ -1,4 +1,4 @@
-﻿using asteriods.Components;
+﻿using asteroids.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Spatials {
+namespace asteroids.Spatials {
 	static class SpatialHelpers {
 		public static bool IsGoingBeyond(ref Rectangle destination, Viewport viewport) {
 			if (destination.X + destination.Width <= viewport.Width

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Systems {
+namespace asteroids.Systems {
 	class PlayerShipControlSystem : TagSystem {
 		private readonly float speed = 0.3f;
 		private readonly float rotation = 0.3f;

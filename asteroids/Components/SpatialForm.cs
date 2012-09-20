@@ -1,12 +1,12 @@
 ﻿using Artemis;
-using asteriods.Spatials;
+using asteroids.Spatials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Components {
+namespace asteroids.Components {
 	class SpatialForm : Component {
 		private SpatialForms form;
 

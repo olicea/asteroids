@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Components {
+namespace asteroids.Components {
 	class Placement : Component {
 		private Vector2 coordinates;
 		private float rotation;

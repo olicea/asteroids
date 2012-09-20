@@ -1,5 +1,5 @@
 ﻿using Artemis;
-using asteriods.Components;
+using asteroids.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Systems {
+namespace asteroids.Systems {
 	class MovementSystem : EntityProcessingSystem {
 		private ComponentMapper<Placement> placementMapper;
 		private ComponentMapper<Velocity> velocityMapper;

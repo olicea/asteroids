@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace asteriods.Components {
+namespace asteroids.Components {
 	class Acceleration : Component {
 		private Vector2 direction;
 		private float boost;
