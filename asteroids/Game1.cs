@@ -56,7 +56,8 @@ namespace asteroids
 			// initialize player
 			Entity entity = this.world.CreateEntity();
 			entity.AddComponent(new Placement(
-				new Vector3(this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2, 0f)
+				new Vector2(this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2),
+				270.0f
 			));
 			entity.AddComponent(new Acceleration());
 			entity.AddComponent(new Velocity());
