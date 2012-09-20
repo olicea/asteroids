@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Acceleration.cs" />
     <Compile Include="Components\SpatialForm.cs" />
     <Compile Include="Components\Placement.cs" />
     <Compile Include="Components\Velocity.cs" />
