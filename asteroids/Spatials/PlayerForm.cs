@@ -11,15 +11,18 @@ using System.Threading.Tasks;
 namespace asteriods.Spatials {
 	static class PlayerForm {
 		private static Texture2D texture;
+		private static Vector2 center;
 
 		public static void LoadContent(GraphicsDevice graphicsDevice) {
 			texture = Texture2D.FromStream(graphicsDevice, TitleContainer.OpenStream("Content/player.png"));
+
+			center = new Vector2(texture.Width / 2, texture.Height / 2);
 		}
 
 		public static void Render(SpriteBatch spriteBatch, Placement placement) {
 			Rectangle destination = new Rectangle(
-				(int)(placement.X - texture.Width / 2),
-				(int)(placement.Y - texture.Height / 2),
+				(int)(placement.X - center.X),
+				(int)(placement.Y - center.Y),
 				texture.Width,
 				texture.Height
 			);
@@ -29,7 +32,7 @@ namespace asteriods.Spatials {
 				null,
 				Color.White,
 				placement.RotationAsRadians,
-				new Vector2(texture.Width / 2, texture.Height / 2),
+				center,
 				SpriteEffects.None,
 				0
 			);
@@ -41,7 +44,7 @@ namespace asteriods.Spatials {
 					null,
 					Color.White,
 					placement.RotationAsRadians,
-					new Vector2(texture.Width / 2, texture.Height / 2),
+					center,
 					SpriteEffects.None,
 					0
 				);
