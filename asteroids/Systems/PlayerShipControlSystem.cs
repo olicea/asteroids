@@ -1,5 +1,6 @@
 ﻿using Artemis;
-using asteriods.Components;
+using asteroids.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace asteriods.Systems {
 	class PlayerShipControlSystem : TagSystem {
-		private readonly float speed = 0.001f;
-		private readonly float rotation = 0.1f;
+		private readonly float speed = 0.3f;
+		private readonly float rotation = 0.3f;
 
 		private ComponentMapper<Placement> placementMapper;
-		private ComponentMapper<Velocity> velocityMapper;
+		private ComponentMapper<Acceleration> accelerationMapper;
 		private KeyboardState oldState;
 
 
@@ -22,23 +23,26 @@ namespace asteriods.Systems {
 
 		public override void Initialize() {
 			this.placementMapper = new ComponentMapper<Placement>(world);
-			this.velocityMapper = new ComponentMapper<Velocity>(world);
+			this.accelerationMapper = new ComponentMapper<Acceleration>(world);
 			this.oldState = Keyboard.GetState();
 		}
 
 		public override void Process(Entity entity) {
-			Velocity velocity = velocityMapper.Get(entity);
+			Placement placement = placementMapper.Get(entity);
+			Acceleration acceleration = accelerationMapper.Get(entity);
 
 			KeyboardState state = Keyboard.GetState();
 
 			if (state.IsKeyDown(Keys.Up) || state.IsKeyDown(Keys.W)) {
-				velocity.Speed += world.Delta * this.speed;
+				acceleration.Direction = Vector2.Normalize(
+					new Vector2((float)Math.Cos(placement.RotationAsRadians), (float)Math.Sin(placement.RotationAsRadians))
+				);
+				
+				acceleration.Boost = this.speed;
 			}
-			else if (this.oldState.IsKeyDown(Keys.Up) || this.oldState.IsKeyDown(Keys.W)) {
-				velocity.Speed -= world.Delta * this.speed;
+			else {
+				acceleration.Boost = 0.0f;
 			}
-
-			Placement placement = placementMapper.Get(entity);
 
 			if (state.IsKeyDown(Keys.Left) || state.IsKeyDown(Keys.A)) {
 				placement.AddRotation(world.Delta * -this.rotation);
