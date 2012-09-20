@@ -13,28 +13,28 @@ namespace asteriods.Systems {
 		private GraphicsDevice graphicsDevice;
 		private SpriteBatch spriteBatch;
 
-		private ComponentMapper<Transform> transformMapper;
+		private ComponentMapper<Placement> placementMapper;
 		private ComponentMapper<SpatialForm> spatialFormMapper;
 
 
 		public RenderSystem(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
-			: base(typeof(Transform), typeof(SpatialForm)) {
+			: base(typeof(Placement), typeof(SpatialForm)) {
 				this.graphicsDevice = graphicsDevice;
 				this.spriteBatch = spriteBatch;
 		}
 
 
 		public override void Initialize() {
-			this.transformMapper = new ComponentMapper<Transform>(world);
+			this.placementMapper = new ComponentMapper<Placement>(world);
 			this.spatialFormMapper = new ComponentMapper<SpatialForm>(world);
 		}
 
 		public override void Process(Entity entity) {
-			Transform transform = this.transformMapper.Get(entity);
+			Placement placement = this.placementMapper.Get(entity);
 
 			switch (this.spatialFormMapper.Get(entity).Form) {
 				case SpatialForms.Player:
-					PlayerForm.Render(this.spriteBatch, transform);
+					PlayerForm.Render(this.spriteBatch, placement);
 					break;
 			}
 		}

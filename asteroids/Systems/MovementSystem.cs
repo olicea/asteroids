@@ -9,33 +9,44 @@ using System.Threading.Tasks;
 
 namespace asteriods.Systems {
 	class MovementSystem : EntityProcessingSystem {
-		private ComponentMapper<Transform> transformMapper;
+		private ComponentMapper<Placement> placementMapper;
 		private ComponentMapper<Velocity> velocityMapper;
+		private ComponentMapper<Acceleration> accelerationMapper;
 
 		private GraphicsDevice graphicsDevice;
 
 
-		public MovementSystem(GraphicsDevice graphicsDevice) : base(typeof(Transform), typeof(Velocity)) {
+		public MovementSystem(GraphicsDevice graphicsDevice) : base(typeof(Placement), typeof(Velocity)) {
 			this.graphicsDevice = graphicsDevice;
 		}
 
 
 		public override void Initialize() {
-			this.transformMapper = new ComponentMapper<Transform>(world);
+			this.placementMapper = new ComponentMapper<Placement>(world);
 			this.velocityMapper = new ComponentMapper<Velocity>(world);
+			this.accelerationMapper = new ComponentMapper<Acceleration>(world);
 		}
 
 		public override void Process(Entity entity) {
-			Transform transform = transformMapper.Get(entity);
+			Placement placement = placementMapper.Get(entity);
 			Velocity velocity = velocityMapper.Get(entity);
 
-			transform.X = this.ApplyRange(
-				transform.X + TrigLUT.Cos(velocity.AngleAsRadians) * velocity.Speed * world.Delta, 
-				this.graphicsDevice.Viewport.Width);
+			if (entity.HasComponent<Acceleration>()) {
+				Acceleration acceleration = accelerationMapper.Get(entity);
 
-			transform.Y = this.ApplyRange(
-				transform.Y + TrigLUT.Sin(velocity.AngleAsRadians) * velocity.Speed * world.Delta,
-				this.graphicsDevice.Viewport.Height);
+				if (acceleration.Boost > 0.0f) {
+					velocity.Direction = velocity.Direction * velocity.Speed + acceleration.Direction * acceleration.Boost;
+
+					Vector2 normalized = Vector2.Normalize(velocity.Direction);
+					velocity.Speed = Math.Min(velocity.Direction.Length() / normalized.Length(), 10.0f);
+					velocity.Direction = normalized;
+				}
+			}
+
+			placement.Coordinates += velocity.Direction * velocity.Speed;
+
+			placement.X = this.ApplyRange(placement.X, this.graphicsDevice.Viewport.Width);
+			placement.Y = this.ApplyRange(placement.Y, this.graphicsDevice.Viewport.Height);
 		}
 
 		private float ApplyRange(float value, float range) {

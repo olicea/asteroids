@@ -7,18 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace asteriods.Components {
-	class Transform : Component {
-		private Vector3 coordinates;
+	class Placement : Component {
+		private Vector2 coordinates;
+		private float rotation;
 
 
-		public Transform() { }
+		public Placement() { }
 
-		public Transform(Vector3 coordinates) {
+		public Placement(Vector2 coordinates, float rotation) {
 			this.coordinates = coordinates;
+			this.rotation = rotation;
 		}
 
 
-		public Vector3 Coordinates {
+		public Vector2 Coordinates {
 			get {
 				return this.coordinates;
 			}
@@ -52,25 +54,25 @@ namespace asteriods.Components {
 
 		public float Rotation {
 			get {
-				return this.coordinates.Z;
+				return this.rotation;
 			}
 			set {
-				this.coordinates.Z = value;
+				this.rotation = value;
 			}
 		}
 
 		public void AddRotation(float angle) {
-			this.coordinates.Z = (this.coordinates.Z + angle) % 360;
+			this.rotation = (this.rotation + angle) % 360;
 		}
 
 		public float RotationAsRadians {
 			get {
-				return (float)Math.PI * this.coordinates.Z / 180.0f;
+				return MathHelper.ToRadians(this.rotation);
 			}
 		}
 
-		public float DistanceTo(Transform transform) {
-			return Artemis.Utils.Distance(transform.X, transform.Y, X, Y);
+		public float DistanceTo(Placement placement) {
+			return Artemis.Utils.Distance(placement.X, placement.Y, X, Y);
 		}
 	}
 }
