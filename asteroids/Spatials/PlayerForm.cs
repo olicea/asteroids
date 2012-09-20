@@ -18,8 +18,8 @@ namespace asteriods.Spatials {
 
 		public static void Render(SpriteBatch spriteBatch, Placement placement) {
 			Rectangle destination = new Rectangle(
-				(int)(placement.X + texture.Width / 2),
-				(int)(placement.Y + texture.Height / 2),
+				(int)(placement.X - texture.Width / 2),
+				(int)(placement.Y - texture.Height / 2),
 				texture.Width,
 				texture.Height
 			);
