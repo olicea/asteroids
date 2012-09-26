@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\asteroid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\player.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
