@@ -9,16 +9,28 @@ using System.Threading.Tasks;
 
 namespace asteroids.Spatials {
 	static class SpatialHelpers {
-		public static bool IsGoingBeyond(ref Rectangle destination, Viewport viewport) {
-			if (destination.X + destination.Width <= viewport.Width
-				&& destination.Y + destination.Height <= viewport.Height) {
-				return false;
+		public static bool IsReflected(ref Rectangle destination, Vector2 center, Viewport viewport) {
+			Rectangle mirror = new Rectangle(destination.X, destination.Y, destination.Width, destination.Height);
+
+			if (mirror.X < center.X)
+				mirror.X += viewport.Width;
+			else
+				if (mirror.X > viewport.Width - center.X)
+					mirror.X -= viewport.Width;
+
+			if (mirror.Y < center.Y)
+				mirror.Y += viewport.Height;
+			else
+				if (mirror.Y > viewport.Height - center.Y)
+					mirror.Y -= viewport.Height;
+
+			if (mirror.X != destination.X || mirror.Y != destination.Y) {
+				destination = mirror;
+
+				return true;
 			}
 
-			if (destination.X + destination.Width - viewport.Width > 0) destination.X -= viewport.Width;
-			if (destination.Y + destination.Height - viewport.Height > 0) destination.Y -= viewport.Height;
-
-			return true;
+			return false;
 		}
 	}
 }

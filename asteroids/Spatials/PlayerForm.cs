@@ -37,8 +37,7 @@ namespace asteroids.Spatials {
 				0
 			);
 
-
-			if (SpatialHelpers.IsGoingBeyond(ref destination, spriteBatch.GraphicsDevice.Viewport)) {
+			if (SpatialHelpers.IsReflected(ref destination, center, spriteBatch.GraphicsDevice.Viewport)) {
 				spriteBatch.Draw(texture,
 					destination,
 					null,
