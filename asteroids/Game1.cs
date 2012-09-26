@@ -10,6 +10,10 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using asteroids.Spatials;
+using Artemis;
+using asteroids.Systems;
+using asteroids.Components;
 
 namespace asteroids
 {
@@ -21,10 +25,12 @@ namespace asteroids
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+		private EntityWorld world;
+
 		public Game1()
 		{
-			graphics = new GraphicsDeviceManager(this);
-			Content.RootDirectory = "Content";
+			this.graphics = new GraphicsDeviceManager(this);
+			this.IsMouseVisible = true;
 		}
 
 		/// <summary>
@@ -35,7 +41,30 @@ namespace asteroids
 		/// </summary>
 		protected override void Initialize()
 		{
+			// Create a new SpriteBatch, which can be used to draw textures.
+			this.spriteBatch = new SpriteBatch(GraphicsDevice);
+
 			// TODO: Add your initialization logic here
+			this.world = new EntityWorld();
+
+			this.world.SystemManager.SetSystem(new PlayerShipControlSystem(), ExecutionType.Update);
+			this.world.SystemManager.SetSystem(new MovementSystem(this.GraphicsDevice), ExecutionType.Update);
+			this.world.SystemManager.SetSystem(new RenderSystem(GraphicsDevice, this.spriteBatch), ExecutionType.Draw);
+
+			this.world.SystemManager.InitializeAll();
+
+			// initialize player
+			Entity entity = this.world.CreateEntity();
+			entity.AddComponent(new Placement(
+				new Vector2(this.GraphicsDevice.Viewport.Width / 2, this.GraphicsDevice.Viewport.Height / 2),
+				270.0f
+			));
+			entity.AddComponent(new Acceleration());
+			entity.AddComponent(new Velocity());
+			entity.AddComponent(new SpatialForm(SpatialForms.Player));
+			entity.Refresh();
+
+			entity.Tag = "PLAYER";
 
 			base.Initialize();
 		}
@@ -46,10 +75,8 @@ namespace asteroids
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
-
 			// TODO: use this.Content to load your game content here
+			PlayerForm.LoadContent(this.GraphicsDevice);
 		}
 
 		/// <summary>
@@ -61,6 +88,8 @@ namespace asteroids
 			// TODO: Unload any non ContentManager content here
 		}
 
+		private DateTime lastTime = DateTime.Now;
+
 		/// <summary>
 		/// Allows the game to run logic such as updating the world,
 		/// checking for collisions, gathering input, and playing audio.
@@ -69,6 +98,13 @@ namespace asteroids
 		protected override void Update(GameTime gameTime)
 		{
 			// TODO: Add your update logic here
+			TimeSpan elapsed = DateTime.Now - this.lastTime;
+			this.lastTime = DateTime.Now;
+
+			this.world.LoopStart();
+			this.world.Delta = elapsed.Milliseconds;
+
+			this.world.SystemManager.UpdateSynchronous(ExecutionType.Update);
 
 			base.Update(gameTime);
 		}
@@ -79,9 +115,14 @@ namespace asteroids
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Clear(Color.CornflowerBlue);
+			this.GraphicsDevice.Clear(Color.Black);
 
 			// TODO: Add your drawing code here
+			this.spriteBatch.Begin();
+
+			this.world.SystemManager.UpdateSynchronous(ExecutionType.Draw);
+
+			this.spriteBatch.End();
 
 			base.Draw(gameTime);
 		}
