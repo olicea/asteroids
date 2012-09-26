@@ -36,6 +36,9 @@ namespace asteroids.Systems {
 				case SpatialForms.Player:
 					PlayerForm.Render(this.spriteBatch, placement);
 					break;
+				case SpatialForms.Asteroid:
+					AsteroidForm.Render(this.spriteBatch, placement);
+					break;
 			}
 		}
 	}

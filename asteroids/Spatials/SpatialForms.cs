@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 namespace asteroids.Spatials {
 	enum SpatialForms {
 		Player,
+		Asteroid,
 	}
 }

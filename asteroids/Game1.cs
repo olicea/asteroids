@@ -77,6 +77,7 @@ namespace asteroids
 		{
 			// TODO: use this.Content to load your game content here
 			PlayerForm.LoadContent(this.GraphicsDevice);
+			AsteroidForm.LoadContent(this.GraphicsDevice);
 		}
 
 		/// <summary>

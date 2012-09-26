@@ -69,6 +69,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spatials\AsteroidForm.cs" />
     <Compile Include="Spatials\SpatialHelpers.cs" />
     <Compile Include="Spatials\PlayerForm.cs" />
     <Compile Include="Spatials\SpatialForms.cs" />
